@@ -14,25 +14,38 @@ class ChatViewController: UIViewController {
     @IBOutlet weak var inputTextField: UITextField!
     @IBOutlet weak var containerViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var sendButton: UIButton!
+    @IBOutlet weak var pickPhotoButton: UIButton!
+    @IBOutlet weak var imageView: UIImageView!
     
     private let messageDB = Database.database().reference().child("Messages")
     private var messages: [MessageEntity] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        pickPhotoButton.layer.cornerRadius = 4
+        pickPhotoButton.layer.masksToBounds = true
         let tapOnTableView = UITapGestureRecognizer(target: self, action: #selector(tappedOnTableView))
         tableView.addGestureRecognizer(tapOnTableView)
         inputTextField.delegate = self
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
+        tableView.register(UINib(nibName: MessageCell.identifier, bundle: Bundle(for: MessageCell.self)), forCellReuseIdentifier: MessageCell.identifier)
         fetchMessagesFromFirebase()
     }
     
     @IBAction func sendButtonPressed(_ sender: UIButton) {
         sendMessagesToFirebase()
-        
     }
+    
+    @IBAction func pickPhoto(_ sender: UIButton) {
+        let vc = UIImagePickerController()
+        vc.sourceType = .photoLibrary
+        vc.delegate = self
+        vc.allowsEditing = true
+        present(vc, animated: true, completion: nil)
+    }
+    
     @IBAction func signOutButtonPressed(_ sender: Any) {
         do {
             try Auth.auth().signOut()
@@ -40,10 +53,25 @@ class ChatViewController: UIViewController {
         } catch {
             print("Failed to sign out")
         }
-        
     }
     
 }
+
+//MARK: - UIImage Picker Controller
+extension ChatViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        if let image = info[UIImagePickerController.InfoKey(rawValue: "UIImagePickerControllerEditedImage")] as? UIImage {
+            imageView.image = image
+        }
+    }
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+
+}
+
 
 // MARK: - Internal Methods
 extension ChatViewController {
@@ -55,6 +83,7 @@ extension ChatViewController {
                 
                 self?.messages.append(MessageEntity(sender: sender, message: message))
                 self?.tableView.reloadData()
+                self?.scrollToLastMessage()
             }
         }
     }
@@ -76,13 +105,20 @@ extension ChatViewController {
         }
     }
     
-    @objc func tappedOnTableView() {
+    @objc private func tappedOnTableView() {
         inputTextField.endEditing(true)
+    }
+    
+    private func scrollToLastMessage() {
+        if messages.count - 1 > 0 {
+            let indexPath = IndexPath(row: messages.count - 1, section: 0)
+            tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        }
     }
     
 }
 
-// MARK: - ajsifjojgda
+// MARK: - TextField
 extension ChatViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         view.layoutIfNeeded()
@@ -91,6 +127,7 @@ extension ChatViewController: UITextFieldDelegate {
             self.containerViewHeightConstraint.constant = 50 + 250
             self.view.layoutIfNeeded()
         }
+        scrollToLastMessage()
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -98,6 +135,7 @@ extension ChatViewController: UITextFieldDelegate {
         UIView.animate(withDuration: 0.4) {
             self.containerViewHeightConstraint.constant = 50
         }
+        scrollToLastMessage()
     }
     
     
@@ -112,10 +150,9 @@ extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: MessageCell.identifier, for: indexPath) as! MessageCell
         let message = messages[indexPath.row]
-        cell.textLabel?.text = message.sender
-        cell.detailTextLabel?.text = message.message
+        cell.message = message
         return cell
     }
     

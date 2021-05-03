@@ -140,8 +140,20 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lFV-DL-t58">
                                 <rect key="frame" x="0.0" y="812" width="414" height="50"/>
                                 <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WXM-hn-kMn">
+                                        <rect key="frame" x="8" y="8" width="34" height="34"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="34" id="Dhd-41-EfV"/>
+                                            <constraint firstAttribute="width" constant="34" id="tpo-Qn-56O"/>
+                                        </constraints>
+                                        <state key="normal" image="plus" catalog="system"/>
+                                        <connections>
+                                            <action selector="pickPhoto:" destination="Z6c-Va-a7U" eventType="touchUpInside" id="8DC-ld-hGC"/>
+                                        </connections>
+                                    </button>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="C9Y-pu-pSP">
-                                        <rect key="frame" x="8" y="8" width="353" height="34"/>
+                                        <rect key="frame" x="46" y="8" width="315" height="34"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -159,10 +171,12 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemTealColor"/>
                                 <constraints>
-                                    <constraint firstItem="C9Y-pu-pSP" firstAttribute="leading" secondItem="lFV-DL-t58" secondAttribute="leading" constant="8" id="3FF-Vy-ARw"/>
+                                    <constraint firstItem="WXM-hn-kMn" firstAttribute="leading" secondItem="lFV-DL-t58" secondAttribute="leading" constant="8" id="1kj-uo-dPg"/>
                                     <constraint firstItem="XZ7-r3-xhO" firstAttribute="leading" secondItem="C9Y-pu-pSP" secondAttribute="trailing" constant="8" id="65a-RM-6mP"/>
                                     <constraint firstItem="C9Y-pu-pSP" firstAttribute="top" secondItem="lFV-DL-t58" secondAttribute="top" constant="8" id="97j-D2-x4R"/>
+                                    <constraint firstItem="C9Y-pu-pSP" firstAttribute="leading" secondItem="WXM-hn-kMn" secondAttribute="trailing" constant="4" id="PeD-ay-jLS"/>
                                     <constraint firstAttribute="trailing" secondItem="XZ7-r3-xhO" secondAttribute="trailing" constant="8" id="dMe-tK-UCn"/>
+                                    <constraint firstItem="WXM-hn-kMn" firstAttribute="top" secondItem="lFV-DL-t58" secondAttribute="top" constant="8" id="eeG-l5-pDs"/>
                                     <constraint firstAttribute="height" constant="50" id="i52-IE-ZxN"/>
                                     <constraint firstItem="XZ7-r3-xhO" firstAttribute="top" secondItem="lFV-DL-t58" secondAttribute="top" constant="10" id="y95-ij-rTE"/>
                                 </constraints>
@@ -174,9 +188,9 @@
                             <constraint firstItem="lFV-DL-t58" firstAttribute="leading" secondItem="6SC-lX-CLQ" secondAttribute="leading" id="0Vv-gJ-lhI"/>
                             <constraint firstItem="lFV-DL-t58" firstAttribute="top" secondItem="qHE-cc-v7D" secondAttribute="bottom" id="2qU-y1-ROo"/>
                             <constraint firstItem="6SC-lX-CLQ" firstAttribute="bottom" secondItem="lFV-DL-t58" secondAttribute="bottom" id="Hg8-9F-btW"/>
+                            <constraint firstItem="qHE-cc-v7D" firstAttribute="top" secondItem="6SC-lX-CLQ" secondAttribute="top" id="J1g-bY-Ado"/>
                             <constraint firstItem="qHE-cc-v7D" firstAttribute="leading" secondItem="6SC-lX-CLQ" secondAttribute="leading" id="aM5-ik-Kdd"/>
                             <constraint firstItem="6SC-lX-CLQ" firstAttribute="trailing" secondItem="lFV-DL-t58" secondAttribute="trailing" id="ah5-gX-vbh"/>
-                            <constraint firstItem="qHE-cc-v7D" firstAttribute="top" secondItem="6SC-lX-CLQ" secondAttribute="top" id="hIM-en-7js"/>
                             <constraint firstItem="qHE-cc-v7D" firstAttribute="trailing" secondItem="6SC-lX-CLQ" secondAttribute="trailing" id="lhF-D9-Qum"/>
                         </constraints>
                     </view>
@@ -190,6 +204,7 @@
                     <connections>
                         <outlet property="containerViewHeightConstraint" destination="i52-IE-ZxN" id="W3r-59-1dw"/>
                         <outlet property="inputTextField" destination="C9Y-pu-pSP" id="Pyk-yd-dVs"/>
+                        <outlet property="pickPhotoButton" destination="WXM-hn-kMn" id="q85-iS-Mxt"/>
                         <outlet property="sendButton" destination="XZ7-r3-xhO" id="P4X-kx-gY4"/>
                         <outlet property="tableView" destination="qHE-cc-v7D" id="ozs-fm-9mc"/>
                     </connections>
@@ -284,6 +299,7 @@
         <segue reference="oth-vi-usA"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="plus" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
