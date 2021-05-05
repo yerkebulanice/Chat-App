@@ -10,4 +10,5 @@ import Foundation
 struct MessageEntity {
     var sender: String
     var message: String
+    var imageUrl: String
 }

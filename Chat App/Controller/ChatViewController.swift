@@ -9,6 +9,8 @@ import UIKit
 import FirebaseAuth
 import FirebaseDatabase
 import FirebaseStorage
+import AVFoundation
+
 class ChatViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
@@ -16,15 +18,13 @@ class ChatViewController: UIViewController {
     @IBOutlet weak var containerViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var pickPhotoButton: UIButton!
-    @IBOutlet weak var imageView: UIImageView!
-    
-    public var imageURL: String?
-    private let storage = 
+
+    public var imageURL: String = ""
+    var player = AVAudioPlayer()
+    private let storage = Storage.storage().reference()
     
     private let messageDB = Database.database().reference().child("Messages")
     private var messages: [MessageEntity] = []
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +41,12 @@ class ChatViewController: UIViewController {
     }
     
     @IBAction func sendButtonPressed(_ sender: UIButton) {
-        sendMessagesToFirebase()
+        if inputTextField.text == "" {
+            inputTextField.placeholder = "You need to write smth"
+        } else {
+            playSound()
+            sendMessagesToFirebase()
+        }
     }
     
     @IBAction func pickPhoto(_ sender: UIButton) {
@@ -67,14 +72,36 @@ class ChatViewController: UIViewController {
 extension ChatViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true, completion: nil)
-        guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-//            imageView.image = image
+        guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {
             return
         }
         
         guard let imageData = image.pngData() else {
-            
+            return
         }
+//        print(imageData)
+        let uuid = UUID().uuidString
+//        print(uuid)
+//        let file: String = "file_\(image)"
+        storage.child("images/\(uuid).png").putData(imageData, metadata: nil, completion: { _, error in
+            guard error == nil else {
+                print("Failed to upload")
+                return
+            }
+            self.storage.child("images/\(uuid).png").downloadURL { (url, error ) in
+                guard let url = url, error == nil else {
+                    return
+                }
+                let urlString = url.absoluteString
+                print("Download Url String: \(urlString)")
+                UserDefaults.standard.set(urlString, forKey: "url")
+                self.imageURL = urlString
+            }
+        })
+//        self.fetchMessagesFromFirebase()
+        self.sendMessagesToFirebase()
+        self.tableView.reloadData()
+        self.scrollToLastMessage()
     }
 
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -91,8 +118,8 @@ extension ChatViewController {
             if let values = snapshot.value as? [String: String] {
                 guard let sender = values["sender"] else { return }
                 guard let message = values["message"] else { return }
-                
-                self?.messages.append(MessageEntity(sender: sender, message: message))
+                guard let imageUrl = values["imageURL"] else { return }
+                self?.messages.append(MessageEntity(sender: sender, message: message, imageUrl: imageUrl))
                 self?.tableView.reloadData()
                 self?.scrollToLastMessage()
             }
@@ -102,16 +129,28 @@ extension ChatViewController {
     private func sendMessagesToFirebase() {
         guard let email = Auth.auth().currentUser?.email else { return }
         guard let message = inputTextField.text else { return }
-        
-        let messageDict: [String: String] = ["sender": email, "message": message]
+//        guard imageURL != nil else { return }
+        let messageDict: [String: String] = ["sender": email, "message": message, "imageURL": imageURL]
         sendButton.isEnabled = false
-        inputTextField.text = ""
         messageDB.childByAutoId().setValue(messageDict) { [weak self] (error, reference) in
             if error != nil {
                 print("Failed to send message, \(error!)")
             } else {
                 self?.sendButton.isEnabled = true
             }
+        }
+        inputTextField.text = ""
+        imageURL = ""
+    }
+    
+    private func playSound() {
+        guard let path = Bundle.main.path(forResource: "send", ofType : "wav") else { return }
+        let url = URL(fileURLWithPath : path)
+        do {
+            player = try AVAudioPlayer(contentsOf: url)
+            player.play()
+        } catch {
+            print ("There is an issue with this code!")
         }
     }
     

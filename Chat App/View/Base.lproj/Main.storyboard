@@ -188,10 +188,10 @@
                             <constraint firstItem="lFV-DL-t58" firstAttribute="leading" secondItem="6SC-lX-CLQ" secondAttribute="leading" id="0Vv-gJ-lhI"/>
                             <constraint firstItem="lFV-DL-t58" firstAttribute="top" secondItem="qHE-cc-v7D" secondAttribute="bottom" id="2qU-y1-ROo"/>
                             <constraint firstItem="6SC-lX-CLQ" firstAttribute="bottom" secondItem="lFV-DL-t58" secondAttribute="bottom" id="Hg8-9F-btW"/>
-                            <constraint firstItem="qHE-cc-v7D" firstAttribute="top" secondItem="6SC-lX-CLQ" secondAttribute="top" id="J1g-bY-Ado"/>
                             <constraint firstItem="qHE-cc-v7D" firstAttribute="leading" secondItem="6SC-lX-CLQ" secondAttribute="leading" id="aM5-ik-Kdd"/>
                             <constraint firstItem="6SC-lX-CLQ" firstAttribute="trailing" secondItem="lFV-DL-t58" secondAttribute="trailing" id="ah5-gX-vbh"/>
                             <constraint firstItem="qHE-cc-v7D" firstAttribute="trailing" secondItem="6SC-lX-CLQ" secondAttribute="trailing" id="lhF-D9-Qum"/>
+                            <constraint firstItem="qHE-cc-v7D" firstAttribute="top" secondItem="6SC-lX-CLQ" secondAttribute="top" id="os7-aT-GOB"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Chat" id="m8B-hP-CmF">

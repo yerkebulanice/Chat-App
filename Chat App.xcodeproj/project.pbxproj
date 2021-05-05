@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		060FD96F2638ECC900606502 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 060FD96E2638ECC900606502 /* RegistrationViewController.swift */; };
 		060FD9722638ECDC00606502 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 060FD9712638ECDC00606502 /* LoginViewController.swift */; };
+		0620560A2642D3BC00A733F7 /* send.wav in Resources */ = {isa = PBXBuildFile; fileRef = 062056092642D3BC00A733F7 /* send.wav */; };
 		06295145263BF40200504D32 /* MessageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06295144263BF40200504D32 /* MessageEntity.swift */; };
 		0629514A263BF70100504D32 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06295148263BF70100504D32 /* MessageCell.swift */; };
 		0629514B263BF70100504D32 /* MessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 06295149263BF70100504D32 /* MessageCell.xib */; };
@@ -26,6 +27,7 @@
 /* Begin PBXFileReference section */
 		060FD96E2638ECC900606502 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		060FD9712638ECDC00606502 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		062056092642D3BC00A733F7 /* send.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = send.wav; sourceTree = "<group>"; };
 		06295144263BF40200504D32 /* MessageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageEntity.swift; sourceTree = "<group>"; };
 		06295148263BF70100504D32 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		06295149263BF70100504D32 /* MessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageCell.xib; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 				06DC60F7263864E100D85F44 /* View */,
 				06DC60F6263864C500D85F44 /* Extra */,
 				06DC60EF263864B500D85F44 /* Info.plist */,
+				062056092642D3BC00A733F7 /* send.wav */,
 				06674FDB2639092800CF8AF9 /* GoogleService-Info.plist */,
 			);
 			path = "Chat App";
@@ -211,6 +214,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0620560A2642D3BC00A733F7 /* send.wav in Resources */,
 				0629514B263BF70100504D32 /* MessageCell.xib in Resources */,
 				06DC60EE263864B500D85F44 /* LaunchScreen.storyboard in Resources */,
 				06674FDC2639092800CF8AF9 /* GoogleService-Info.plist in Resources */,
