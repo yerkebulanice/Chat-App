@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseAuth
 import FirebaseDatabase
+import FirebaseStorage
 class ChatViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
@@ -17,8 +18,13 @@ class ChatViewController: UIViewController {
     @IBOutlet weak var pickPhotoButton: UIButton!
     @IBOutlet weak var imageView: UIImageView!
     
+    public var imageURL: String?
+    private let storage = 
+    
     private let messageDB = Database.database().reference().child("Messages")
     private var messages: [MessageEntity] = []
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,8 +67,13 @@ class ChatViewController: UIViewController {
 extension ChatViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true, completion: nil)
-        if let image = info[UIImagePickerController.InfoKey(rawValue: "UIImagePickerControllerEditedImage")] as? UIImage {
-            imageView.image = image
+        guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+//            imageView.image = image
+            return
+        }
+        
+        guard let imageData = image.pngData() else {
+            
         }
     }
 
@@ -101,7 +112,6 @@ extension ChatViewController {
             } else {
                 self?.sendButton.isEnabled = true
             }
-            
         }
     }
     
@@ -138,8 +148,6 @@ extension ChatViewController: UITextFieldDelegate {
         scrollToLastMessage()
     }
     
-    
-    
 }
 
 
@@ -155,6 +163,5 @@ extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
         cell.message = message
         return cell
     }
-    
     
 }

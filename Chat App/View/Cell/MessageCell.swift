@@ -10,7 +10,6 @@ import Firebase
 class MessageCell: UITableViewCell {
     public static let identifier: String = "MessageCell"
     
-    
     @IBOutlet private weak var senderLabel: UILabel!
     @IBOutlet private weak var messageLabel: UILabel!
     @IBOutlet private weak var containerView: UIView!

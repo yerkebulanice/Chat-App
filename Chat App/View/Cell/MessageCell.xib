@@ -39,12 +39,19 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ax3-ub-Opu">
+                                <rect key="frame" x="4" y="29" width="232" height="118"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemTealColor"/>
                         <constraints>
                             <constraint firstItem="H1T-Wl-Ao7" firstAttribute="leading" secondItem="6q3-WO-ixs" secondAttribute="leading" constant="4" id="2Hb-t5-zTq"/>
                             <constraint firstAttribute="bottom" secondItem="WGF-xc-KZ9" secondAttribute="bottom" constant="4" id="LnR-3P-GGR"/>
+                            <constraint firstAttribute="bottom" secondItem="Ax3-ub-Opu" secondAttribute="bottom" constant="4" id="MdI-E9-iT3"/>
+                            <constraint firstItem="Ax3-ub-Opu" firstAttribute="leading" secondItem="6q3-WO-ixs" secondAttribute="leading" constant="4" id="PTH-0p-bKA"/>
                             <constraint firstAttribute="trailing" secondItem="H1T-Wl-Ao7" secondAttribute="trailing" constant="4" id="WpL-jc-d2B"/>
+                            <constraint firstItem="Ax3-ub-Opu" firstAttribute="top" secondItem="H1T-Wl-Ao7" secondAttribute="bottom" constant="4" id="XA5-vM-Fml"/>
+                            <constraint firstAttribute="trailing" secondItem="Ax3-ub-Opu" secondAttribute="trailing" constant="4" id="XmO-oC-MsE"/>
                             <constraint firstAttribute="trailing" secondItem="WGF-xc-KZ9" secondAttribute="trailing" constant="4" id="bCu-g5-VS0"/>
                             <constraint firstItem="H1T-Wl-Ao7" firstAttribute="top" secondItem="6q3-WO-ixs" secondAttribute="top" constant="4" id="klt-g7-oQk"/>
                             <constraint firstItem="WGF-xc-KZ9" firstAttribute="leading" secondItem="6q3-WO-ixs" secondAttribute="leading" constant="4" id="nAv-7l-DWl"/>
