@@ -74,6 +74,7 @@
                 <outlet property="containerView" destination="6q3-WO-ixs" id="jPH-Kt-qnO"/>
                 <outlet property="messageLabel" destination="WGF-xc-KZ9" id="Ep6-BP-3hV"/>
                 <outlet property="photoImageView" destination="Ax3-ub-Opu" id="dbu-U2-p8P"/>
+                <outlet property="photoImageViewHeight" destination="Gmm-pb-0Ah" id="cSu-Lb-8g8"/>
                 <outlet property="senderLabel" destination="H1T-Wl-Ao7" id="1U3-ll-tnZ"/>
             </connections>
             <point key="canvasLocation" x="34.782608695652179" y="175.78125"/>

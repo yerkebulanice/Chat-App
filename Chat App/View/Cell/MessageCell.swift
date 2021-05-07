@@ -15,23 +15,19 @@ class MessageCell: UITableViewCell {
     @IBOutlet private weak var messageLabel: UILabel!
     @IBOutlet private weak var containerView: UIView!
     @IBOutlet weak var photoImageView: UIImageView!
+    @IBOutlet weak var photoImageViewHeight: NSLayoutConstraint!
     public var message: MessageEntity? {
         didSet {
             if let message = message {
-//                let scale = UIScreen.main.scale
-//                let resizingProcessor = ResizingImageProcessor(referenceSize: CGSize(width: 100.0 * scale, height: 100.0 * scale))
-//                let url = URL(string: message.imageUrl)
-//                photoImageView.kf.indicatorType = .activity
-//                photoImageView.kf.setImage(with: url,
-//                                      options: [.processor(resizingProcessor)],
-//                                      completionHandler: { [ weak self] image, error, cacheType, imageURL in
-//                                          self?.imageView.layer.shadowOpacity = 0.5
-//                                      }
+                if message.imageUrl == "" {
+                    photoImageViewHeight.constant = 0
+                } else {
+                    photoImageViewHeight.constant = 170
+                }
                 let url = URL(string: message.imageUrl)
                 photoImageView.kf.setImage(with: url)
                 senderLabel.text = message.sender
                 messageLabel.text = message.message
-                
                 if Auth.auth().currentUser?.email == message.sender {
                     containerView.backgroundColor = .systemTeal
                 } else {

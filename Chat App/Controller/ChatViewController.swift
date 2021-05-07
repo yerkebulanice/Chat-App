@@ -81,8 +81,6 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
         }
 //        print(imageData)
         let uuid = UUID().uuidString
-//        print(uuid)
-//        let file: String = "file_\(image)"
         storage.child("images/\(uuid).png").putData(imageData, metadata: nil, completion: { _, error in
             guard error == nil else {
                 print("Failed to upload")
@@ -99,7 +97,7 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
             }
         })
 //        self.fetchMessagesFromFirebase()
-        self.sendMessagesToFirebase()
+//        self.sendMessagesToFirebase()
         self.tableView.reloadData()
         self.scrollToLastMessage()
     }
@@ -137,6 +135,7 @@ extension ChatViewController {
                 print("Failed to send message, \(error!)")
             } else {
                 self?.sendButton.isEnabled = true
+                self?.imageURL = ""
             }
         }
         inputTextField.text = ""
